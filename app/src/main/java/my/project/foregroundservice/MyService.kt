@@ -13,7 +13,7 @@ class MyService : Service() {
 
     private lateinit var musicPlayer: MediaPlayer
 
-    override fun onBind(p0: Intent?): IBinder? {
+    override fun onBind(intent: Intent?): IBinder? {
         return null
     }
 
@@ -25,15 +25,26 @@ class MyService : Service() {
 
     override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
         showNotification()
-        return super.onStartCommand(intent, flags, startId)
+        startMusic()
+
+        return START_STICKY_COMPATIBILITY
     }
+
+    private fun startMusic() {
+        musicPlayer.start()
+    }
+
+
+
+
+
 
     @SuppressLint("NewApi")
     private fun showNotification() {
         val notificationIntent = Intent(this, MainActivity::class.java)
 
         val pendingIntent = PendingIntent.getActivity(
-            this, 0, notificationIntent, 0
+            this, 0, notificationIntent, PendingIntent.FLAG_MUTABLE
         )
 
         val notification = Notification
@@ -66,9 +77,14 @@ class MyService : Service() {
 
     private fun initMusic() {
         musicPlayer = MediaPlayer.create(this,
-            R.raw.mymusic)
+            R.raw.classic)
         musicPlayer.isLooping = true
         musicPlayer.setVolume(100F, 100F)
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        musicPlayer.stop()
     }
 
 
