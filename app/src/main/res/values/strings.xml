@@ -1,4 +1,5 @@
 <resources>
     <string name="app_name">Simple Player</string>
     <string name="playStopButtonText">Play/Stop</string>
+    <string name="song_name"> Paul Mauriat: The lonely shepherd</string>
 </resources>

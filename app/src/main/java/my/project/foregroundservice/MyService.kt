@@ -35,10 +35,6 @@ class MyService : Service() {
     }
 
 
-
-
-
-
     @SuppressLint("NewApi")
     private fun showNotification() {
         val notificationIntent = Intent(this, MainActivity::class.java)
